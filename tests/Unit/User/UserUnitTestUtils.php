@@ -2,6 +2,9 @@
 
 namespace Tests\Unit\User;
 
+use App\Business\User\Domain\User;
+use App\Business\User\Port\EncryptService;
+
 class UserUnitTestUtils {
     public static string $userName = "Carlos Henrique";
     public static string $updatedUserName = "Carlos Henrique editado";
