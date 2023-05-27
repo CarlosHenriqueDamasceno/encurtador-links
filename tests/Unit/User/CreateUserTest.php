@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class CreateUserTest extends TestCase {
     public function test_should_create_an_user(): void {
-        $encrypterService = \Mockery::mock(EncryptService::class);
-        $encrypterService
+        $encryptService = \Mockery::mock(EncryptService::class);
+        $encryptService
             ->shouldReceive('encrypt')
             ->with(UserUnitTestUtils::$uncryptedPassword)
             ->andReturn(
@@ -23,7 +23,7 @@ class CreateUserTest extends TestCase {
         )->andReturn(
             UserUnitTestUtils::$existentUser
         );
-        $createUser = new CreateUserImpl($userRepository, $encrypterService);
+        $createUser = new CreateUserImpl($userRepository, $encryptService);
         $input = new CreateUserInput(
             UserUnitTestUtils::$userName, UserUnitTestUtils::$validEmail,
             UserUnitTestUtils::$uncryptedPassword

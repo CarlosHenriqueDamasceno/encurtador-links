@@ -30,9 +30,9 @@ readonly class User {
         string $name,
         string $email,
         string $password,
-        EncryptService $encrypterService
+        EncryptService $encryptService
     ): User {
-        $password = Password::build($password, $encrypterService);
+        $password = Password::build($password, $encryptService);
         return new User(null, $name, $email, $password);
     }
 
