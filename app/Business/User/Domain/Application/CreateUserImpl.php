@@ -16,6 +16,7 @@ readonly class CreateUserImpl implements CreateUser {
     ) {}
 
     public function execute(CreateUserInput $input): UserOutput {
+        //TODO: verificar se o email já está em uso, e criar o teste para isso
         $user = User::buildNonExistentUser(
             $input->name, $input->email, $input->password, $this->encryptService
         );

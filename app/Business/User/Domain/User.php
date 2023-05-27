@@ -48,11 +48,11 @@ readonly class User {
         return new User($id, $name, $email, $password);
     }
 
-    public function copyWith(?string $name): User {
+    public function copyWith(?string $name, ?string $email): User {
         return new User(
             id: $this->id,
             name: (!is_null($name) ? $name : $this->name),
-            email: $this->email->value,
+            email: (!is_null($email) ? $email : $this->email),
             password: $this->password
         );
     }

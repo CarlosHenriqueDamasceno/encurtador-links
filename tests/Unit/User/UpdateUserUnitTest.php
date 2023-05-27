@@ -2,6 +2,8 @@
 
 namespace Tests\Unit\User;
 
+use App\Business\User\Domain\Application\UpdateUserImpl;
+use App\Business\User\Port\Dto\UpdateUserInput;
 use App\Business\User\Port\UserRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -15,6 +17,12 @@ class UpdateUserUnitTest extends TestCase {
                 UserUnitTestUtils::$existentUser
             );
         $userRepository
+            ->shouldReceive('searchByEmail')
+            ->with(UserUnitTestUtils::$updatedEmail)
+            ->andReturn(
+                null
+            );
+        $userRepository
             ->shouldReceive('update')
             ->with(
                 \Mockery::on(
@@ -24,9 +32,12 @@ class UpdateUserUnitTest extends TestCase {
             ->andReturn(
                 UserUnitTestUtils::$updatedUser
             );
-        $input = new UpdateUserInput(UserUnitTestUtils::$updatedUserName);
+        $input = new UpdateUserInput(
+            UserUnitTestUtils::$updatedUserName, UserUnitTestUtils::$updatedEmail
+        );
         $updateUser = new UpdateUserImpl($userRepository);
         $user = $updateUser->execute(1, $input);
         $this->assertEquals(UserUnitTestUtils::$updatedUserName, $user->name);
+        $this->assertEquals(UserUnitTestUtils::$updatedEmail, $user->email);
     }
 }

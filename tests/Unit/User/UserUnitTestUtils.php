@@ -10,10 +10,12 @@ class UserUnitTestUtils {
     public static string $updatedUserName = "Carlos Henrique editado";
     public static string $validEmail = "carlos@teste.com";
     public static string $invalidEmail = "carlos@teste";
+    public static string $updatedEmail = "carloseditado@teste.com";
     public static string $uncryptedPassword = "123123123";
     public static string $invalidPassword = "123";
     public static string $encryptedPassword = "88ea39439e74fa27c09a4fc0bc8ebe6d00978392";
 
+    public static string $alreadyTakenEmailErrorMessage = "O email fornecido já está em uso por outro usuário!";
     public static string $userNotFoundErrorMessage = "Usuário não encontrado com o id 1!";
     public static string $invalidEmailErrorMessage = "O E-mail fornecido não é válido!";
     public static string $invalidPasswordErrorMessage = "A senha deve conter pelo menos 8 caracteres!";
@@ -45,7 +47,7 @@ class UserUnitTestUtils {
         self::$updatedUser = User::buildExistentUser(
             1,
             UserUnitTestUtils::$updatedUserName,
-            UserUnitTestUtils::$validEmail,
+            UserUnitTestUtils::$updatedEmail,
             UserUnitTestUtils::$encryptedPassword
         );
     }
