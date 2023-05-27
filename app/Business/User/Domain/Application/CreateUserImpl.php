@@ -2,6 +2,7 @@
 
 namespace App\Business\User\Domain\Application;
 
+use App\Business\Shared\Exception\BusinessException;
 use App\Business\User\Domain\User;
 use App\Business\User\Port\Application\CreateUser;
 use App\Business\User\Port\Dto\CreateUserInput;
@@ -16,10 +17,16 @@ readonly class CreateUserImpl implements CreateUser {
     ) {}
 
     public function execute(CreateUserInput $input): UserOutput {
-        //TODO: verificar se o email já está em uso, e criar o teste para isso
+        $this->validate($input->email);
         $user = User::buildNonExistentUser(
             $input->name, $input->email, $input->password, $this->encryptService
         );
         return UserOutput::fromUser($this->repo->create($user));
+    }
+
+    private function validate($email): void {
+        $userWithSameEmail = $this->repo->searchByEmail($email);
+        if ($userWithSameEmail)
+            throw new BusinessException("O email fornecido já está em uso por outro usuário!");
     }
 }

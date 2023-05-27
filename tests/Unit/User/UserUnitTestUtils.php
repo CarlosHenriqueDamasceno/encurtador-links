@@ -22,6 +22,7 @@ class UserUnitTestUtils {
     public static string $invalidIdErrorMessage = "O id informado não é válido!";
 
     public static User $existentUser;
+    public static User $secondaryExistentUser;
     public static User $toSaveUser;
     public static User $updatedUser;
 
@@ -42,6 +43,12 @@ class UserUnitTestUtils {
             1,
             UserUnitTestUtils::$userName,
             UserUnitTestUtils::$validEmail,
+            UserUnitTestUtils::$encryptedPassword
+        );
+        self::$secondaryExistentUser = User::buildExistentUser(
+            2,
+            UserUnitTestUtils::$userName,
+            UserUnitTestUtils::$updatedEmail,
             UserUnitTestUtils::$encryptedPassword
         );
         self::$updatedUser = User::buildExistentUser(
