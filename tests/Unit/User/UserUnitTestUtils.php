@@ -15,7 +15,7 @@ class UserUnitTestUtils {
     public static string $encryptedPassword = "88ea39439e74fa27c09a4fc0bc8ebe6d00978392";
 
     public static string $userNotFoundErrorMessage = "Usuário não encontrado com o id 1!";
-    public static string $invalidEmailErrorMessage = "O E-mail informado não é válido!";
+    public static string $invalidEmailErrorMessage = "O E-mail fornecido não é válido!";
     public static string $invalidPasswordErrorMessage = "A senha deve conter pelo menos 8 caracteres!";
     public static string $invalidIdErrorMessage = "O id informado não é válido!";
 

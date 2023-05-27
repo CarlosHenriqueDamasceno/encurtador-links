@@ -12,7 +12,7 @@ readonly class Password {
         if (strlen($value) > 8) {
             return new Password($encryptService->encrypt($value));
         } else {
-            throw new BusinessException("The password must have at least 8 characters!");
+            throw new BusinessException("A senha deve conter pelo menos 8 caracteres!");
         }
     }
 }

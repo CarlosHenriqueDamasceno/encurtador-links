@@ -43,7 +43,7 @@ readonly class User {
         string $password
     ): User {
         if ($id < 1)
-            throw new BusinessException("The id must be greater than 0");
+            throw new BusinessException("O id informado não é válido!");
         $password = new Password($password);
         return new User($id, $name, $email, $password);
     }
