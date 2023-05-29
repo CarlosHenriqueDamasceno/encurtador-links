@@ -28,6 +28,12 @@ class CreateUserTest extends TestCase {
         )->andReturn(
             UserUnitTestUtils::$existentUser
         );
+        $userRepository
+            ->shouldReceive('searchByEmail')
+            ->with(UserUnitTestUtils::$validEmail)
+            ->andReturn(
+                null
+            );
         $createUser = new CreateUserImpl($userRepository, $encryptService);
         $input = new CreateUserInput(
             UserUnitTestUtils::$userName, UserUnitTestUtils::$validEmail,
