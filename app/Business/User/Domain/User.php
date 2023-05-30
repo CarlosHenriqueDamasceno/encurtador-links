@@ -48,9 +48,9 @@ readonly class User {
         return new User($id, $name, $email, $password);
     }
 
-    public function copyWith(?string $name, ?string $email): User {
+    public function copyWith(?int $id = null, ?string $name = null, ?string $email = null): User {
         return new User(
-            id: $this->id,
+            id: (!is_null($id) ? $id : $this->id),
             name: (!is_null($name) ? $name : $this->name),
             email: (!is_null($email) ? $email : $this->email),
             password: $this->password

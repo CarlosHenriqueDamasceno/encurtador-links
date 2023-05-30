@@ -33,9 +33,9 @@ readonly class Link {
         return new Link($id, $url, $slug);
     }
 
-    public function copyWith(?string $url): Link {
+    public function copyWith(int $id = null, string $url = null): Link {
         return new Link(
-            id: $this->id,
+            id: (!is_null($id) ? $id : $this->id),
             url: (!is_null($url) ? $url : $this->url),
             slug: $this->slug
         );
