@@ -14,7 +14,7 @@ readonly class CreateLinkImpl implements CreateLink {
     public function __construct(private LinkRepository $linkRepository) {}
 
     public function execute(CreateLinkInput $data): LinkOutput {
-        $slugHasBeenGivenByUser = is_null($data->slug);
+        $slugHasBeenGivenByUser = !is_null($data->slug);
         $link = $this->validate($data, $slugHasBeenGivenByUser);
         $link = $this->linkRepository->create($link);
         return LinkOutput::fromLink($link);
@@ -32,7 +32,7 @@ readonly class CreateLinkImpl implements CreateLink {
         $link = Link::buildNonExistentLink($data->url, $data->slug);
         if ($slugHasBeenGivenByUser) {
             if (!$this->validateSlug($link->slug))
-                throw new BusinessException("O slug informado não é válido!");
+                throw new BusinessException("O slug informado já está em uso!");
         } else {
             while (!$this->validateSlug($link->slug)) {
                 $link = $this->generateNewSlug($link->url->value);

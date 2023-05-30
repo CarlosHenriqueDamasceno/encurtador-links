@@ -11,6 +11,8 @@ class LinkUnitTestUtils {
     public static Link $toSaveLink;
     public static Link $existentLink;
 
+    public static string $alreadyTakenSlugErrorMessage = "O slug informado já está em uso!";
+
     public static function init(): void {
         self::$toSaveLink = Link::buildNonExistentLink(self::$url, self::$slug);
         self::$existentLink = Link::buildExistentLink(1, self::$url, self::$slug);
