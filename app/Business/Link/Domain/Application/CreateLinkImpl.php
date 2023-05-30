@@ -15,12 +15,20 @@ readonly class CreateLinkImpl implements CreateLink {
 
     public function execute(CreateLinkInput $data): LinkOutput {
         $slugHasBeenGivenByUser = !is_null($data->slug);
-        $link = $this->validate($data, $slugHasBeenGivenByUser);
+        $link = Link::buildNonExistentLink($data->url, $data->slug);
+        if ($slugHasBeenGivenByUser) {
+            if (!$this->checkSlugAvailability($link->slug))
+                throw new BusinessException("O slug informado já está em uso!");
+        } else {
+            while (!$this->checkSlugAvailability($link->slug)) {
+                $link = $this->generateNewSlug($link->url->value);
+            }
+        }
         $link = $this->linkRepository->create($link);
         return LinkOutput::fromLink($link);
     }
 
-    private function validateSlug($slug): bool {
+    private function checkSlugAvailability($slug): bool {
         return is_null($this->linkRepository->searchBySlug($slug));
     }
 
@@ -28,17 +36,4 @@ readonly class CreateLinkImpl implements CreateLink {
         return Link::buildNonExistentLink($url, null);
     }
 
-    private function validate(CreateLinkInput $data, bool $slugHasBeenGivenByUser): Link {
-        $link = Link::buildNonExistentLink($data->url, $data->slug);
-        if ($slugHasBeenGivenByUser) {
-            if (!$this->validateSlug($link->slug))
-                throw new BusinessException("O slug informado já está em uso!");
-        } else {
-            while (!$this->validateSlug($link->slug)) {
-                $link = $this->generateNewSlug($link->url->value);
-            }
-        }
-        return $link;
-
-    }
 }
