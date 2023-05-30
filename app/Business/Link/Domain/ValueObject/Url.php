@@ -4,7 +4,7 @@ namespace App\Business\Link\Domain\ValueObject;
 
 use App\Business\Shared\Exception\BusinessException;
 
-class Url {
+readonly class Url {
     private function __construct(public string $value) {}
 
     public static function build(string $value): Url {
