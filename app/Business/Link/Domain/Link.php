@@ -33,6 +33,14 @@ readonly class Link {
         return new Link($id, $url, $slug);
     }
 
+    public function copyWith(?string $url): Link {
+        return new Link(
+            id: $this->id,
+            url: (!is_null($url) ? $url : $this->url),
+            slug: $this->slug
+        );
+    }
+
     private static function generateRandomSlug(): string {
         $dictionary = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $slug = '';
