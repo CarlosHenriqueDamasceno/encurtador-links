@@ -9,13 +9,13 @@ readonly class Link {
     public Url $url;
     public string $slug;
 
-    public function __construct(?int $id, string $url, string $slug) {
+    private function __construct(?int $id, string $url, string $slug) {
         $this->id = $id;
         $this->url = Url::build($url);
         $this->slug = $slug;
     }
 
-    public static function buildNonExistentLinkWithSlug(
+    public static function buildNonExistentLink(
         string $url,
         ?string $slug
     ): Link {
@@ -23,6 +23,14 @@ readonly class Link {
             $slug = self::generateRandomSlug();
         }
         return new Link(null, $url, $slug);
+    }
+
+    public static function buildExistentLink(
+        int $id,
+        string $url,
+        string $slug
+    ): Link {
+        return new Link($id, $url, $slug);
     }
 
     private static function generateRandomSlug(): string {
