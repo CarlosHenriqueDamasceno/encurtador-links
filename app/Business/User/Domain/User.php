@@ -52,7 +52,7 @@ readonly class User {
         return new User(
             id: (!is_null($id) ? $id : $this->id),
             name: (!is_null($name) ? $name : $this->name),
-            email: (!is_null($email) ? $email : $this->email),
+            email: (!is_null($email) ? $email : $this->email->value),
             password: $this->password
         );
     }

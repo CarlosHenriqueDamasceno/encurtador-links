@@ -41,7 +41,7 @@ class EloquentLinkRepository implements LinkRepository {
     }
 
     public function searchBySlug(string $slug): Link|null {
-        $model = LinkModel::whereSlug($slug);
+        $model = LinkModel::whereSlug($slug)->first();
         return $model ? Link::buildExistentLink(
             $model->id, $model->url, $model->slug
         ) : null;

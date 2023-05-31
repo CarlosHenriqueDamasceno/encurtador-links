@@ -16,7 +16,7 @@ readonly class UpdateLinkImpl implements UpdateLink {
     public function execute(int $id, UpdateLinkInput $data): LinkOutput {
         try {
             $link = $this->linkRepository->find($id);
-            $link = $link->copyWith($data->url);
+            $link = $link->copyWith(url: $data->url);
             return LinkOutput::fromLink($this->linkRepository->update($link));
         } catch (ResourceNotFoundException $exception) {
             throw new BusinessException("Link não encontrado com o id $id!");

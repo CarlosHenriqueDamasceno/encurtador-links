@@ -17,7 +17,7 @@ readonly class UpdateUserImpl implements UpdateUser {
         try {
             $this->validate($id, $data->email);
             $user = $this->repo->find($id);
-            $user = $user->copyWith($data->name, $data->email);
+            $user = $user->copyWith(name: $data->name, email: $data->email);
             return UserOutput::fromUser($this->repo->update($user));
         } catch (ResourceNotFoundException $exception) {
             throw new BusinessException("Usuário não encontrado com o id $id!");

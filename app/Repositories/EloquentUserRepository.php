@@ -11,8 +11,8 @@ class EloquentUserRepository implements UserRepository {
     public function create(User $user): User {
         $model = new UserModel([
             'name' => $user->name,
-            'email' => $user->email,
-            'password' => $user->password
+            'email' => $user->email->value,
+            'password' => $user->password->value
         ]);
         $model->save();
         $model->refresh();
@@ -25,7 +25,7 @@ class EloquentUserRepository implements UserRepository {
     }
 
     public function searchByEmail(string $email): User|null {
-        $model = UserModel::whereEmail($email);
+        $model = UserModel::whereEmail($email)->first();
         return $model ? User::buildExistentUser(
             $model->id, $model->name, $model->email, $model->password
         ) : null;

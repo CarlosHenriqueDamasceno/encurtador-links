@@ -11,7 +11,7 @@ class UserUnitTestUtils {
     public static string $validEmail = "carlos@teste.com";
     public static string $invalidEmail = "carlos@teste";
     public static string $updatedEmail = "carloseditado@teste.com";
-    public static string $uncryptedPassword = "123123123";
+    public static string $uncryptedPassword = "12312312";
     public static string $invalidPassword = "123";
     public static string $encryptedPassword = "88ea39439e74fa27c09a4fc0bc8ebe6d00978392";
 
